@@ -2,6 +2,8 @@
 
 RADIUS=4
 
+CAS_PER_GENOME=50
+
 FITNESS_FILE=tmpr$(RADIUS).txt
 OUTPUT_FILE=radius$(RADIUS).txt
 
@@ -14,7 +16,7 @@ fitness:
 	gnuplot -persist -e "plot '$(FITNESS_FILE)'"
 
 runga:
-	g++ runga.cpp -o runga "-DRADIUS=$(RADIUS)" -Wall -O3 -std=c++11 -lga -fopenmp
+	g++ runga.cpp -o runga "-DRADIUS=$(RADIUS)" "-DCAS_PER_GENOME=$(CAS_PER_GENOME)" -Wall -O3 -std=c++11 -lga -fopenmp
 
 GENOME_FILE=tmpin.txt
 DATA_FILE=plot.txt
@@ -29,7 +31,7 @@ termplot: plotobj
 	./plot $(GENOME_FILE) > $(DATA_FILE); gnuplot -persist -e "infile = '$(DATA_FILE)'" plot.p
 
 plotobj:
-	g++ plot.cpp -o plot "-DRADIUS=$(RADIUS)" -Wall -std=c++11 -lga -fopenmp
+	g++ plot.cpp -o plot "-DRADIUS=$(RADIUS)" "-DCAS_PER_GENOME=$(CAS_PER_GENOME)" -Wall -std=c++11 -lga -fopenmp
 
 clean:
 	rm runga plot

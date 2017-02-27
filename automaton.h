@@ -9,12 +9,8 @@
 
 #include <ga/ga.h>
 
-//radius of neighborhood
 #define NLENGTH (2*RADIUS +1)
 #define GENOME_LENGTH (1 << (2*RADIUS +1))
-//number of automata created with each genome (not the same as genome 
-//population size - affects accuracy of fitness function)
-#define CAS_PER_GENOME 50
 
 using namespace std;
 
@@ -72,7 +68,7 @@ public:
 	//Returned fitness values
 	//Perfect (homogeneous) classification: 1 + speed bonus in [0,1]
 	//Imperfect classification: board fraction correct in [0,1]
-	//Wrong answer: negative of the above
+	//Wrong answer: -2x the above
 	const float majorityClassify() {
 		for (unsigned i=0; i<maxSteps; i++) {
 			step();
