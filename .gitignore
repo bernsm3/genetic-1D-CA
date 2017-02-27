@@ -1,0 +1,8 @@
+plot
+runga
+*.png
+data/
+olddata/
+galib247/
+galibdoc.pdf
+*.txt
