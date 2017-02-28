@@ -29,13 +29,18 @@ float gaussRand() { //misleadingly titled ... just returns a rand in [0,1}
 class Automaton {
 
 public:
-	Automaton(const GA1DBinaryStringGenome& _genome, unsigned _length, unsigned _maxSteps): 
-	genome(_genome), length(_length), maxSteps(_maxSteps), steps(0) {
+	Automaton(const GA1DBinaryStringGenome& _genome, unsigned _length, unsigned _maxSteps, float _seed): 
+	genome(_genome), length(_length), maxSteps(_maxSteps), seed(_seed),steps(0) {
+		initialize();
+	}
+
+	Automaton(const GA1DBinaryStringGenome& _genome, float _seed):
+	genome(_genome), length(201), maxSteps(500), seed(_seed), steps(0) {
 		initialize();
 	}
 
 	Automaton(const GA1DBinaryStringGenome& _genome):
-	genome(_genome), length(201), maxSteps(500), steps(0) {
+	genome(_genome), length(201), maxSteps(500), seed(gaussRand()), steps(0) {
 		initialize();
 	}
 
@@ -98,7 +103,7 @@ protected:
 	void initialize() {
 		//fill board with random bools and count the 1's
 		//initial distribution has random distribution param. in [0,1)
-    	bernoulli_distribution dist(gaussRand());
+    	bernoulli_distribution dist(seed);
     	board.reserve(length);
     	for (unsigned i=0; i<length; i++) 
     		board.push_back(dist(*randGen()));
@@ -109,6 +114,7 @@ protected:
 	const GA1DBinaryStringGenome genome;
 	const unsigned length;
 	const unsigned maxSteps;
+	const float seed;
 	bool initMajority;
 	unsigned steps;
 	vector<bool> board;

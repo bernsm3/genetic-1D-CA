@@ -1,6 +1,6 @@
 .PHONY: runga plot
 
-RADIUS=4
+RADIUS=2
 
 CAS_PER_GENOME=50
 
